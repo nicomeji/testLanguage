@@ -1,0 +1,8 @@
+To build proyect use java 8 and do:
+mvn compile assembly:single
+
+To build and execute:
+mvn exec:java
+
+The last command could be used to run functional tests.
+
