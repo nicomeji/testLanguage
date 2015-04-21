@@ -3,10 +3,13 @@ package parser.operators;
 import lombok.Getter;
 
 public class Operator {
-	@Getter
-	private String operator;
+    @Getter
+    private String name;
 
-	public Operator(String operator) {
-		this.operator = operator;
-	}
+    @Getter
+    private String operator;
+
+    public Operator(String operator) {
+        this.operator = operator;
+    }
 }
