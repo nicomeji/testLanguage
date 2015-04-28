@@ -30,11 +30,9 @@ public class Operator {
         this.symbol = symbol;
         this.description = description;
         this.priority = priority;
-        this.pattern = Pattern.compile(SimpleWord.REGEX + "=[^=;]");
     }
 
     public List<Integer> indexesOfOperator(String line) {
-        Matcher matcher = pattern.matcher(line);
         List<Integer> indexes = Collections.emptyList();
         if (matcher.find()) {
             indexes = IntStream.range(0, matcher.groupCount()).boxed().map(index -> {
