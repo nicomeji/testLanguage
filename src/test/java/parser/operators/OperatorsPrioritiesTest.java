@@ -1,5 +1,7 @@
 package parser.operators;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -12,20 +14,18 @@ public class OperatorsPrioritiesTest {
     @Test
     public void priorityListIsReadable() {
         operationsPriorities = new OperatorsPriorities();
-        List<Priority> priorities = operationsPriorities.getPriorities();
-        assertTrue(priorities.contains(OperatorsPriorities.MAX_VALUE));
-        assertTrue(priorities.contains(OperatorsPriorities.MIN_VALUE));
-    }
+        assertThat(
+                operationsPriorities.getPriorities(),
+                containsInAnyOrder(OperatorsPriorities.MIN_VALUE,
+                                   OperatorsPriorities.MAX_VALUE));
 
-    @Test
-    public void canAddNewPriority() {
         Priority newPriority = new Priority();
-        operationsPriorities = new OperatorsPriorities();
         operationsPriorities.insert(OperatorsPriorities.MIN_VALUE, newPriority);
-        List<Priority> priorities = operationsPriorities.getPriorities();
-        assertTrue(priorities.contains(newPriority));
-        assertTrue(priorities.contains(OperatorsPriorities.MAX_VALUE));
-        assertTrue(priorities.contains(OperatorsPriorities.MIN_VALUE));
+        assertThat(
+                operationsPriorities.getPriorities(),
+                containsInAnyOrder(OperatorsPriorities.MIN_VALUE,
+                                   newPriority,
+                                   OperatorsPriorities.MAX_VALUE));
     }
 
     @Test
@@ -35,6 +35,8 @@ public class OperatorsPrioritiesTest {
         operationsPriorities.insert(OperatorsPriorities.MIN_VALUE, newPriority);
         List<Priority> priorities = operationsPriorities.getPriorities();
         assertTrue(priorities.get(0) == OperatorsPriorities.MIN_VALUE);
+        assertThat(priorities.get(0),
+                is(equalTo(OperatorsPriorities.MIN_VALUE)));
     }
 
     @Test
@@ -44,5 +46,7 @@ public class OperatorsPrioritiesTest {
         operationsPriorities.insert(OperatorsPriorities.MIN_VALUE, newPriority);
         List<Priority> priorities = operationsPriorities.getPriorities();
         assertTrue(priorities.get(priorities.size() - 1) == OperatorsPriorities.MAX_VALUE);
+        assertThat(priorities.get(priorities.size() - 1),
+                is(equalTo(OperatorsPriorities.MAX_VALUE)));
     }
 }

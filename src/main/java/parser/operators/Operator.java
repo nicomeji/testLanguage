@@ -13,6 +13,7 @@ public class Operator {
     private static class SubString {
         @Getter
         private final int start;
+
         @Getter
         private final String string;
 
@@ -36,10 +37,13 @@ public class Operator {
 
     @Getter
     private String name;
+
     @Getter
     private String symbol;
+
     @Getter
     private String description;
+
     @Getter
     private Priority priority;
 

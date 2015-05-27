@@ -30,6 +30,3 @@ public final class OperatorsPriorities {
         return Collections.unmodifiableList(priorities);
     }
 }
-
-class Priority {
-}
