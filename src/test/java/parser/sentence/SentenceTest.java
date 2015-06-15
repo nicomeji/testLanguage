@@ -1,32 +1,43 @@
 package parser.sentence;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.hamcrest.Matchers.*;
 
+import java.util.Collections;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import parser.sentence.Sentence;
 
 public class SentenceTest {
-    private static final String SENTENCE = "a=1;";
-
-    @Test(expected=IllegalArgumentException.class)
-    public void sentencesEndWithSemicolon () {
-        new Sentence("Something useless.");
-    }
-
+	private static final String INTEGER = "Integer";
+	private static final String FUNCTION = "Function";
+	private static Sentence sentence;
+	
+	@BeforeClass
+	public static void setUp () {
+		sentence = new Sentence(FUNCTION, INTEGER, Collections.emptyList());
+	}
+	
     @Test
     public void sentenceHasTokens () {
-        assertThat(new Sentence(SENTENCE).getTokens(), is(not(empty())));
+        assertThat(sentence.getNestedSentence(), is(empty()));
     }
 
     @Test
     public void sentenceHasType () {
-        assertThat(new Sentence(SENTENCE).getReturnedType(), is(not(nullValue())));
+        assertThat(sentence.getType(), is(equalTo(FUNCTION)));
     }
 
     @Test
     public void sentenceHasReturnedType () {
-        assertThat(new Sentence(SENTENCE).getReturnedType(), is(not(nullValue())));
+        assertThat(sentence.getReturnedType(), is(equalTo(INTEGER)));
+    }
+
+    @Test
+    public void sentenceCanBeAToken () {
+        assertTrue(sentence.isToken());
     }
 }

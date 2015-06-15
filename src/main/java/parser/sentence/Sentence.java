@@ -13,27 +13,15 @@ public class Sentence {
     protected final String returnedType;
 
     @Getter
-    protected final List<Token> tokens;
+    protected final List<Sentence> nestedSentence;
 
-    protected Sentence (String type, String returnedType, List<Token> tokens) {
+    public boolean isToken () {
+    	return nestedSentence.isEmpty();
+    }
+
+    public Sentence (String type, String returnedType, List<Sentence> nestedSentence) {
         this.type=type;
         this.returnedType = returnedType;
-        this.tokens = Collections.unmodifiableList(tokens);
-    }
-
-    public Sentence(String sentence) throws IllegalArgumentException {
-        validateInput(sentence);
-        // TODO
-        this.type = null;
-        this.returnedType=null;
-        this.tokens=null;
-    }
-
-    private void validateInput(String sentence)
-            throws IllegalArgumentException {
-        if (sentence.indexOf(';') + 1 != sentence.length()) {
-            throw new IllegalArgumentException(
-                    "Every Sentence must end with semicolon.");
-        }
+        this.nestedSentence = Collections.unmodifiableList(nestedSentence);
     }
 }
