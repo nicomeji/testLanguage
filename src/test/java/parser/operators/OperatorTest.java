@@ -2,7 +2,6 @@ package parser.operators;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -64,7 +63,6 @@ public class OperatorTest {
     public void operatorsProcessLongString() {
         String testSentence = "number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number=number";
         List<Integer> indexes = operator.indexes(testSentence);
-        assertThat(testSentence.length(), is(greaterThan(Operator.LONG_STRING)));
         assertThat(
                 indexes,
                 contains(6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, 90, 97, 104, 111, 118, 125, 132, 139, 146, 153,

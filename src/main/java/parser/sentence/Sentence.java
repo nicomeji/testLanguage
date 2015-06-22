@@ -7,13 +7,13 @@ import lombok.Getter;
 
 public class Sentence {
     @Getter
-    protected final String type;
+    private final String type;
 
     @Getter
-    protected final String returnedType;
+    private final String returnedType;
 
     @Getter
-    protected final List<Sentence> nestedSentence;
+    private final List<Sentence> nestedSentence;
 
     public boolean isToken () {
     	return nestedSentence.isEmpty();
