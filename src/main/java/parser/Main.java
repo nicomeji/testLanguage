@@ -1,6 +1,8 @@
 package parser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,25 +12,29 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Main implements Runnable{
-    private final List<File> sourceFiles;
+public class Main implements Runnable {
+    private final List<FileInputStream> sourceFiles;
     private final Parser parser;
+    private final CommandLineParser cmdParser;
 
     public static void main(String[] args) throws ParseException {
-        Main program = new Main(args, new Parser());
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        Main program = new Main(args, context);
         program.run();
     }
 
-    public Main (String[] args, Parser parser) throws ParseException {
-        Option option = new Option("f", "file", true,
-                "Source file to be parsed.");
+    public Main(String[] args, ApplicationContext applicationContext) throws ParseException {
+        Option option = new Option("f", "file", true, "Source file to be parsed.");
         Options options = new Options();
         options.addOption(option);
         CommandLine cmd = new PosixParser().parse(options, args);
 
-        sourceFiles = getSources(cmd).stream().filter(this::filterReadableFiles).collect(Collectors.toList());
-        this.parser = parser;
+        sourceFiles = getSources(cmd).stream().map(this::checkFiles).collect(Collectors.toList());
+        this.cmdParser = null;
+        this.parser = null;
     }
 
     private List<File> getSources(CommandLine cmd) throws ParseException {
@@ -41,12 +47,14 @@ public class Main implements Runnable{
         return sources.stream().map(File::new).collect(Collectors.toList());
     }
 
-    private boolean filterReadableFiles (File f) {
-        if (f != null && f.canRead()) {
-            return true;
+    private FileInputStream checkFiles(File f) {
+        FileInputStream stream = null;
+        try {
+            stream = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        System.err.println("File " + f.getPath() + " cannot be read.");
-        return false;
+        return stream;
     }
 
     @Override
