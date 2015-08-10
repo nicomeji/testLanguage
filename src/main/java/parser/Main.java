@@ -16,11 +16,11 @@ public class Main implements Runnable{
     private final Parser parser;
 
     public static void main(String[] args) throws ParseException {
-        Main program = new Main(args);
+        Main program = new Main(args, new Parser());
         program.run();
     }
 
-    public Main (String[] args) throws ParseException {
+    public Main (String[] args, Parser parser) throws ParseException {
         Option option = new Option("f", "file", true,
                 "Source file to be parsed.");
         Options options = new Options();
@@ -28,7 +28,7 @@ public class Main implements Runnable{
         CommandLine cmd = new PosixParser().parse(options, args);
 
         sourceFiles = getSources(cmd).stream().filter(this::filterReadableFiles).collect(Collectors.toList());
-        parser = new Parser();
+        this.parser = parser;
     }
 
     private List<File> getSources(CommandLine cmd) throws ParseException {
