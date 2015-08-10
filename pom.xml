@@ -70,7 +70,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>parser.Parser</mainClass>
+                            <mainClass>parser.Main</mainClass>
                             <arguments>
                                 <argument>${project.basedir}/src/test/resources/main/test.ñ</argument>
                             </arguments>

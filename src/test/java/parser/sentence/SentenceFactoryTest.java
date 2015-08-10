@@ -15,7 +15,7 @@ public class SentenceFactoryTest {
 	
 	@BeforeClass
 	public static void setUp () {
-		sentenceFactory = new SentenceFactory();
+		sentenceFactory = new SentenceFactory(';');
 		sentence = sentenceFactory.processSentence("a=1;");
 	}
 
