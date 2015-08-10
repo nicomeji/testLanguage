@@ -17,8 +17,8 @@ public final class OperatorsPriorities {
 
     public Priority insert(Priority reference, Priority newPriority) {
         int index;
-        if(MIN_VALUE == reference) {
-            index=1;
+        if (MIN_VALUE == reference) {
+            index = 1;
         } else {
             index = priorities.indexOf(reference);
         }

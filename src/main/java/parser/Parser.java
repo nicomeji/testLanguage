@@ -1,10 +1,9 @@
 package parser;
 
-import java.io.File;
-
+import java.io.FileInputStream;
 
 public class Parser {
-    public Object parse (File f) {
+    public Object parse(FileInputStream f) {
         return null;
     }
 }
