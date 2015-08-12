@@ -25,7 +25,7 @@ public class Main implements Runnable {
     private final ArgumentsProcessor cmdParser;
 
     public static void main(String[] args) throws ParseException, FileNotFoundException {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"ApplicationContext.xml"});
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"CommandLineParserContext.xml"});
         Main program = new Main(args, context);
         program.run();
     }
@@ -37,7 +37,7 @@ public class Main implements Runnable {
         CommandLine cmd = new PosixParser().parse(options, args);
 
         this.sourceFiles = getSources(cmd);
-        this.cmdParser = null;
+        this.cmdParser = (ArgumentsProcessor) applicationContext.getBean("cmdlineProcessor");
         this.parser = null;
     }
 
