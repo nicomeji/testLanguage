@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <bean id="cmdlineProcessor" class="parser.cmdline.ArgumentsProcessor">
+        <constructor-arg ref="options" />
+    </bean>
+
+    <util:list id="options" value-type="org.apache.commons.cli.Option">
+        <ref bean="sourceFiles" />
+    </util:list>
+
+    <bean id="optionDescriptions" class="com.disney.wdpro.service.common.util.ExposablePropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:lineParserDescriptions.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sourceFiles" class="org.apache.commons.cli.Option">
+        <constructor-arg type="java.lang.String" value="f" />
+        <constructor-arg type="java.lang.String" value="source-files" />
+        <constructor-arg type="boolean" value="true" />
+        <constructor-arg type="java.lang.String" value="${sourceFilesOptDescription}" />
+    </bean>
+</beans>
