@@ -1,15 +1,19 @@
 package parser.cmdline;
 
-import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
 
+import com.beust.jcommander.Parameter;
+
 public class Arguments {
     @Getter
-    private final List<FileInputStream> sources;
+    @Parameter(names = { "-f", "--source-file" }, required = true, descriptionKey = "sourceFilesOptDescription")
+    private List<String> sources = new ArrayList<String>();
 
-    public Arguments(List<FileInputStream> sources) {
-        this.sources = sources;
+    @Override
+    public String toString() {
+        return "sources=" + sources.toString();
     }
 }

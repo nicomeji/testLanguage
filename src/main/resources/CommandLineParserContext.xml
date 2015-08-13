@@ -6,14 +6,11 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:property-placeholder location="classpath:lineParserDescriptions.properties" />
+    <util:properties id="magic" location="classpath:lineParserDescriptions.properties"/> <!-- This can be inyected -->
 
     <bean id="cmdlineProcessor" class="parser.cmdline.ArgumentsProcessor">
-        <constructor-arg ref="options" />
+        <constructor-arg ref="sourceFiles" />
     </bean>
-
-    <util:list id="options" value-type="org.apache.commons.cli.Option">
-        <ref bean="sourceFiles" />
-    </util:list>
 
     <bean id="sourceFiles" class="org.apache.commons.cli.Option">
         <constructor-arg type="java.lang.String" value="f" />
