@@ -18,7 +18,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main implements Runnable {
     private final List<FileInputStream> sourceFiles;
     private final Parser parser;
-    private final CommandLineParser cmdParser;
 
     public static void main(String[] args) throws ParseException {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
@@ -33,7 +32,6 @@ public class Main implements Runnable {
         CommandLine cmd = new PosixParser().parse(options, args);
 
         sourceFiles = getSources(cmd).stream().map(this::checkFiles).collect(Collectors.toList());
-        this.cmdParser = null;
         this.parser = null;
     }
 

@@ -11,11 +11,4 @@
     <bean id="cmdlineProcessor" class="parser.cmdline.ArgumentsProcessor">
         <constructor-arg ref="sourceFiles" />
     </bean>
-
-    <bean id="sourceFiles" class="org.apache.commons.cli.Option">
-        <constructor-arg type="java.lang.String" value="f" />
-        <constructor-arg type="java.lang.String" value="source-files" />
-        <constructor-arg type="boolean" value="true" />
-        <constructor-arg type="java.lang.String" value="${sourceFilesOptDescription}" />
-    </bean>
 </beans>
