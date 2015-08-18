@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.Getter;
+
 import org.apache.commons.cli.Option;
 import org.apache.commons.io.FilenameUtils;
 
 public enum OptionsAvailable {
-    SOURCE_FILE("-f", "--sources-files", "sourceFilesOptDescription", true, false, Option.UNLIMITED_VALUES) {
+    SOURCE_FILE("f", "sources-files", "sourceFilesOptDescription", true, false, Option.UNLIMITED_VALUES) {
         @Override
         public List<String> getDefaultValue() {
             Arrays.asList(new File(".").listFiles()).stream().parallel().filter(file -> {
@@ -17,7 +19,7 @@ public enum OptionsAvailable {
             return Arrays.asList();
         }
     },
-    DEBUG("-d", "--debug", "debugOptDescription", false, false, 0);
+    DEBUG("d", "debug", "debugOptDescription", false, false, 0);
 
     private OptionsAvailable(String shortName, String longName, String descriptionKey, boolean required, boolean hasArg, int qArg) {
         this.descriptionKey = descriptionKey;
@@ -28,8 +30,9 @@ public enum OptionsAvailable {
         this.qArg = qArg;
     }
 
-    public final String descriptionKey;
+    @Getter
     public final String shortName;
+    public final String descriptionKey;
     public final String longName;
     public final boolean required;
     public final boolean hasArg;
