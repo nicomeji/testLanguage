@@ -42,6 +42,10 @@ public enum OptionsAvailable {
         return Arrays.asList();
     }
 
+    public static OptionsAvailable valueOf(Option opt) {
+        return OptionsAvailable.valueOf(opt.getArgName());
+    }
+
     public static List<OptionsAvailable> listOptions() {
         return Arrays.asList(values());
     }

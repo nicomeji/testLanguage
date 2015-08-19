@@ -14,17 +14,11 @@ public class Main implements Runnable {
     private final Parser parser;
 
     public static void main(String[] args) throws ParseException {
-        AbstractApplicationContext context = null;
-        try {
-            context = new ClassPathXmlApplicationContext("CommandLineParserContext.xml");
+        try (AbstractApplicationContext context = new ClassPathXmlApplicationContext("CommandLineParserContext.xml")) {
             OptionsProcessor optionsProcessor = (OptionsProcessor) context.getBean("cmdLineProcessor");
             Parser parser = (Parser) context.getBean("parser");
             Main program = new Main(optionsProcessor.process(args), parser);
             program.run();
-        } finally {
-            if (context != null) {
-                context.close();
-            }
         }
     }
 

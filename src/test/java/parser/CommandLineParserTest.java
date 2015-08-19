@@ -1,13 +1,15 @@
 package parser;
 
 import org.apache.commons.cli.ParseException;
-import org.springframework.context.ApplicationContext;
+
+import parser.cmdline.Attributes;
 
 public class CommandLineParserTest {
-    ApplicationContext applicationContextMock;
+    Parser parserMock;
+    Attributes attributesMock;
 
     public void simpleExecution() throws ParseException {
-        Main main = new Main(getArgs("a"), applicationContextMock);
+        Main main = new Main(attributesMock, parserMock);
     }
 
     private String[] getArgs(String... a) {
