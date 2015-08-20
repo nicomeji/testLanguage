@@ -10,7 +10,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.io.FilenameUtils;
 
 public enum OptionsAvailable {
-    SOURCE_FILE("f", "sources-files", "sourceFilesOptDescription", true, false, Option.UNLIMITED_VALUES) {
+    SOURCE_FILE("f", "sources-files", "sourceFilesOptDescription", true, true, Option.UNLIMITED_VALUES) {
         @Override
         public List<String> getDefaultValue() {
             Arrays.asList(new File(".").listFiles()).stream().parallel().filter(file -> {
