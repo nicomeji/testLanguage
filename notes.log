@@ -1,0 +1,2 @@
+Cada bloque de código, q pueda ser refenciado (ej funcion, o puntero), o no (ej bloque dentro del una sentencia if, o while), tiene metada.
+Dentro de la metadata de cada bloque se define q variables toca, esto permite advertir con tiempo cuando se va a intentar modificar una constante.

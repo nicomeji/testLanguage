@@ -7,10 +7,10 @@ public class SentenceFactory {
         this.separator = separator;
     }
 
-    public Sentence processSentence(String sentence)
+    public SimpleSentence processSentence(String sentence)
             throws IllegalArgumentException {
         validateInput(sentence);
-        return new Sentence(null, null, null);
+        return new SimpleSentence(null);
     }
 
     private void validateInput(String sentence) throws IllegalArgumentException {

@@ -25,7 +25,6 @@ public class Main implements Runnable {
     public Main(Attributes attributes, Parser parser) {
         this.attributes = attributes;
         this.parser = parser;
-        System.out.println(attributes.getSourceFiles());
     }
 
     @Override
