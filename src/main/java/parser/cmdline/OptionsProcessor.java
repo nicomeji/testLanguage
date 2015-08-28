@@ -1,12 +1,7 @@
 package parser.cmdline;
 
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -26,13 +21,6 @@ public class OptionsProcessor {
     }
 
     public Attributes process(String[] args) throws ParseException {
-        Map<OptionsAvailable, List<String>> optionsMap = new EnumMap<OptionsAvailable,  List<String>>(OptionsAvailable.class);
-        CommandLine cmd = new PosixParser().parse(options, args);
-        for (Option opt : cmd.getOptions()) {
-            if (! opt.getValuesList().isEmpty()) {
-                optionsMap.put(OptionsAvailable.valueOf(opt), Arrays.asList(opt.getValues()));
-            }
-        }
-        return new Attributes(optionsMap);
+        return new Attributes(new PosixParser().parse(options, args).getOptions());
     }
 }

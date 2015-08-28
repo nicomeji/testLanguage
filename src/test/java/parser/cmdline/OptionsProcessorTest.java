@@ -25,7 +25,7 @@ public class OptionsProcessorTest {
     @Before
     public void setUp() {
         propMock = createMock(Properties.class);
-        expect(propMock.getProperty(anyString())).andReturn(DESCRIPTION).times(OptionsAvailable.values().length);
+        expect(propMock.getProperty(anyString())).andReturn(DESCRIPTION).times(OptionsAvailable.listOptions().size());
         replay(propMock);
         optionProcessor = new OptionsProcessor(propMock);
     }
