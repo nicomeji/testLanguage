@@ -1,6 +1,7 @@
 package parser.cmdline;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ public abstract class OptionsAvailable<T> {
     public static final OptionsAvailable<List<File>> SOURCE_FILE;
     public static final OptionsAvailable<Boolean> DEBUG;
 
-    private static final List<OptionsAvailable<? extends Object>> optionsAvailable;
+    private static final List<OptionsAvailable<? extends Object>> optionsAvailable = new ArrayList<OptionsAvailable<? extends Object>>();
 
     static {
         SOURCE_FILE = new OptionsAvailable<List<File>>("f", "sources-files", "sourceFilesOptDescription", true, true, Option.UNLIMITED_VALUES) {
@@ -29,7 +30,6 @@ public abstract class OptionsAvailable<T> {
                 return Arrays.asList(opt.getValues()).stream().map(File::new).collect(Collectors.toList());
             }
         };
-
         DEBUG = new OptionsAvailable<Boolean>("d", "debug", "debugOptDescription", false, false, 0) {
             @Override
             protected Boolean getDeaultValue() {
@@ -41,8 +41,6 @@ public abstract class OptionsAvailable<T> {
                 return Boolean.valueOf(opt.getValue());
             }
         };
-
-        optionsAvailable = Collections.unmodifiableList(Arrays.asList(SOURCE_FILE, DEBUG));
     }
 
     protected OptionsAvailable(String shortName, String longName, String descriptionKey, boolean required, boolean hasArg, int qArg) {
@@ -52,6 +50,8 @@ public abstract class OptionsAvailable<T> {
         this.required = required;
         this.hasArg = hasArg;
         this.qArg = qArg;
+
+        OptionsAvailable.optionsAvailable.add(this);
     }
 
     public final String shortName;
@@ -63,14 +63,15 @@ public abstract class OptionsAvailable<T> {
 
     public T getValueFrom(Option[] parsedOptions) {
         Option opt = getOption(parsedOptions);
-        return opt.getValues() != null ? getParsedValues(opt) : getDeaultValue();
+        return opt != null && opt.getValues() != null ? getParsedValues(opt) : getDeaultValue();
     }
-    
+
     protected abstract T getDeaultValue();
+
     protected abstract T getParsedValues(Option opt);
 
     public static List<OptionsAvailable<? extends Object>> listOptions() {
-        return optionsAvailable;
+        return Collections.unmodifiableList(optionsAvailable);
     }
 
     public static OptionsAvailable<? extends Object> valueOf(Option opt) {
@@ -82,8 +83,8 @@ public abstract class OptionsAvailable<T> {
             return false;
         }).findFirst().orElse(null);
     }
-    
-    private Option getOption (Option[] opts) {
+
+    private Option getOption(Option[] opts) {
         for (Option option : opts) {
             if (this.longName.equals(option.getLongOpt())) {
                 return option;
