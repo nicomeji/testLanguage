@@ -83,7 +83,7 @@ public abstract class OptionsAvailable<T> {
         }).findFirst().orElse(null);
     }
     
-    protected Option getOption (Option[] opts) {
+    private Option getOption (Option[] opts) {
         for (Option option : opts) {
             if (this.longName.equals(option.getLongOpt())) {
                 return option;
