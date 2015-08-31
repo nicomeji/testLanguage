@@ -13,22 +13,16 @@ import parser.sentence.Sentence;
 
 public class SentenceTest {
 	private static final String INTEGER = "Integer";
-	private static final String FUNCTION = "Function";
 	private static Sentence sentence;
 	
 	@BeforeClass
 	public static void setUp () {
-		sentence = new Sentence(FUNCTION, INTEGER, Collections.emptyList());
+		sentence = new Sentence(INTEGER, Collections.emptyList());
 	}
 	
     @Test
     public void sentenceHasTokens () {
         assertThat(sentence.getNestedSentence(), is(empty()));
-    }
-
-    @Test
-    public void sentenceHasType () {
-        assertThat(sentence.getType(), is(equalTo(FUNCTION)));
     }
 
     @Test

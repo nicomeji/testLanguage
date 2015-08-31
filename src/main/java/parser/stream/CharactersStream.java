@@ -1,14 +1,14 @@
-package parser;
+package parser.stream;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class SourceSupplier implements Supplier<Optional<String>> {
+public class CharactersStream implements Supplier<Optional<String>> {
     private final FileInputStream source;
 
-    public SourceSupplier(FileInputStream in) {
+    public CharactersStream(FileInputStream in) {
         this.source = in;
     }
 

@@ -25,11 +25,6 @@ public class SentenceFactoryTest {
     }
 
     @Test
-    public void sentenceHasType () {
-        assertThat(sentence.getType(), is(equalTo("")));
-    }
-
-    @Test
     public void sentenceHasReturnedType () {
         assertThat(sentence.getReturnedType(), is(equalTo("")));
     }

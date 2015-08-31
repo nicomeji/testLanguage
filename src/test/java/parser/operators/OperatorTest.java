@@ -20,7 +20,7 @@ public class OperatorTest {
 
     @BeforeClass
     public static void generalSetUp() throws BadAttributeValueExpException {
-        operator = new Operator(NAME, SYMBOL, DESCRIPTION, OperatorsPriorities.MIN_VALUE);
+        operator = new Operator(NAME, SYMBOL, DESCRIPTION);
     }
 
     @Test
@@ -31,11 +31,6 @@ public class OperatorTest {
     @Test
     public void operatorsHasDescription() {
         assertThat(operator.getDescription(), is(equalTo(DESCRIPTION)));
-    }
-
-    @Test
-    public void operatorsHasPriority() {
-        assertThat(operator.getPriority(), is(equalTo(OperatorsPriorities.MIN_VALUE)));
     }
 
     @Test

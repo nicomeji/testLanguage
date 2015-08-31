@@ -7,9 +7,6 @@ import lombok.Getter;
 
 public class Sentence {
     @Getter
-    private final String type;
-
-    @Getter
     private final String returnedType;
 
     @Getter
@@ -19,8 +16,7 @@ public class Sentence {
     	return nestedSentence.isEmpty();
     }
 
-    public Sentence (String type, String returnedType, List<Sentence> nestedSentence) {
-        this.type=type;
+    public Sentence (String returnedType, List<Sentence> nestedSentence) {
         this.returnedType = returnedType;
         this.nestedSentence = Collections.unmodifiableList(nestedSentence);
     }

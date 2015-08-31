@@ -10,7 +10,7 @@ public class SentenceFactory {
     public Sentence processSentence(String sentence)
             throws IllegalArgumentException {
         validateInput(sentence);
-        return new Sentence(null, null, null);
+        return new Sentence(null, null);
     }
 
     private void validateInput(String sentence) throws IllegalArgumentException {
