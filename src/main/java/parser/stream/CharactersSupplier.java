@@ -2,25 +2,29 @@ package parser.stream;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-public class CharactersStream implements Supplier<Optional<String>> {
+public class CharactersSupplier implements Supplier<String> {
     private final FileInputStream source;
 
-    public CharactersStream(FileInputStream in) {
+    public CharactersSupplier(FileInputStream in) {
         this.source = in;
     }
 
+    public Stream<String> stream() {
+        return Stream.generate(this).limit(getFileSize());
+    }
+    
     @Override
-    public Optional<String> get() {
+    public String get() {
         String nextValue = null;
         try {
             nextValue = getNextElement();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Optional.ofNullable(nextValue);
+        return nextValue;
     }
 
     private String getNextElement() throws IOException {
@@ -29,5 +33,14 @@ public class CharactersStream implements Supplier<Optional<String>> {
             return new Character((char) character).toString();
         }
         return null;
+    }
+
+    private long getFileSize () {
+        try {
+            return source.getChannel().size();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

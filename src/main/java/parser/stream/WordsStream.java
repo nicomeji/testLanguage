@@ -1,34 +1,26 @@
 package parser.stream;
 
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.util.Optional;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import parser.operators.ReservedKeys;
 
-public class WordsStream implements Supplier<Optional<String>> {
-    private final CharactersStream source;
+public class WordsStream extends CharactersStream {
     private final Pattern pattern;
 
-    public WordsStream(CharactersStream in) {
+    public WordsStream(FileInputStream fs) {
+        super(fs);
         this.pattern = Pattern.compile("[" + ReservedKeys.BLANK_PATTERN + ReservedKeys.END_BLOCK + ReservedKeys.STAR_BLOCK + ReservedKeys.END_SENTENCE + "]");
-        this.source = in;
     }
 
     @Override
     public Optional<String> get() {
-        String nextValue = null;
-        try {
-            nextValue = getNextElement();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.ofNullable(nextValue);
+        return Optional.ofNullable(getNextElement());
     }
 
-    private String getNextElement() throws IOException {
-        Optional<String> character = source.get();
+    private String getNextElement() {
+        Optional<String> character = super.get();
         StringBuilder word = new StringBuilder();
         while (character.isPresent() && !pattern.matcher(character.get()).find()) {
             word.append(character.get());
