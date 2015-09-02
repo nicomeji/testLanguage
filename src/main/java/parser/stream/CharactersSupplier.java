@@ -15,7 +15,7 @@ public class CharactersSupplier implements Supplier<String> {
     public Stream<String> stream() {
         return Stream.generate(this).limit(getFileSize());
     }
-    
+
     @Override
     public String get() {
         String nextValue = null;
@@ -35,7 +35,7 @@ public class CharactersSupplier implements Supplier<String> {
         return null;
     }
 
-    private long getFileSize () {
+    private long getFileSize() {
         try {
             return source.getChannel().size();
         } catch (IOException e) {
