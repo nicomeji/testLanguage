@@ -7,18 +7,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class SentenceFactoryTest {
-	private static SentenceFactory sentenceFactory;
+public class SimpleSentenceTest {
+	private static final String INTEGER = "Integer";
 	private static SimpleSentence sentence;
 	
 	@BeforeClass
 	public static void setUp () {
-		sentenceFactory = new SentenceFactory(';');
-		sentence = sentenceFactory.processSentence("a=1;");
+		sentence = new SimpleSentence(INTEGER);
 	}
-
+	
     @Test
     public void sentenceHasReturnedType () {
-        assertThat(sentence.getReturnedType(), is(equalTo("")));
+        assertThat(sentence.getReturnedType(), is(equalTo(INTEGER)));
     }
 }

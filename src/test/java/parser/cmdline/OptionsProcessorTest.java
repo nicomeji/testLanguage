@@ -7,6 +7,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static parser.utils.Utils.getArrayFrom;
 
 import java.io.File;
 import java.util.Properties;
@@ -37,19 +38,15 @@ public class OptionsProcessorTest {
 
     @Test
     public void parseSourceFilesOpt_1() throws ParseException {
-        Attributes attributes = optionProcessor.process(getArgs("-f", "/path/to/sourceFile"));
-        assertThat(attributes.getSourceFiles().size(), is(1));
+        Attributes attributes = optionProcessor.process(getArrayFrom("-f", "/path/to/sourceFile"));
+        assertThat(attributes.getSourceFiles(), hasSize(1));
         assertThat(attributes.getSourceFiles().get(0).toString(), is(equalTo("/path/to/sourceFile")));
     }
 
     @Test
     public void parseSourceFilesOpt_2() throws ParseException {
-        Attributes attributes = optionProcessor.process(getArgs("-f", "/path/to/sourceFile1", "/path/to/sourceFile2"));
-        assertThat(attributes.getSourceFiles().size(), is(2));
+        Attributes attributes = optionProcessor.process(getArrayFrom("-f", "/path/to/sourceFile1", "/path/to/sourceFile2"));
+        assertThat(attributes.getSourceFiles(), hasSize(2));
         assertThat(attributes.getSourceFiles(), containsInAnyOrder(new File("/path/to/sourceFile1"), new File("/path/to/sourceFile2")));
-    }
-
-    private String[] getArgs(String... a) {
-        return a;
     }
 }

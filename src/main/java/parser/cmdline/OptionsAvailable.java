@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.cli.Option;
 import org.apache.commons.io.FilenameUtils;
 
+import static parser.utils.Utils.nullGuard;
+
 public abstract class OptionsAvailable<T> {
     public static final OptionsAvailable<List<File>> SOURCE_FILE;
     public static final OptionsAvailable<Boolean> DEBUG;
@@ -85,7 +87,7 @@ public abstract class OptionsAvailable<T> {
     }
 
     private Option getOption(Option[] opts) {
-        for (Option option : opts) {
+        for (Option option : nullGuard(opts)) {
             if (this.longName.equals(option.getLongOpt())) {
                 return option;
             }
