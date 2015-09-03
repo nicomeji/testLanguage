@@ -3,15 +3,13 @@ package parser.cmdline;
 import java.io.File;
 import java.util.List;
 
-import lombok.Getter;
+import lombok.Data;
 
 import org.apache.commons.cli.Option;
 
+@Data
 public class Attributes {
-    @Getter
     private final List<File> sourceFiles;
-
-    @Getter
     private final boolean debugMode;
 
     public Attributes(Option[] parsedOptions) {

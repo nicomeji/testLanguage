@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 public class Operator {
-    @Getter
     private final String name;
-
-    @Getter
     private final String symbol;
-
-    @Getter
     private final String description;
-
     private final Pattern pattern;
 
     Operator(String name, String symbol, String description) {
@@ -26,7 +22,11 @@ public class Operator {
         this.name = name;
         this.symbol = symbol;
         this.description = description;
-        this.pattern = Pattern.compile(Pattern.quote(symbol));
+        try {
+            this.pattern = Pattern.compile(Pattern.quote(symbol));
+        } catch (PatternSyntaxException e) {
+            throw new IllegalArgumentException(e.getCause());
+        }
     }
 
     @Deprecated

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.cli.Option;
 import org.apache.commons.io.FilenameUtils;
 
-import static parser.utils.Utils.nullGuard;
+import static parser.utils.Utils.asStream;
 
 public abstract class OptionsAvailable<T> {
     public static final OptionsAvailable<List<File>> SOURCE_FILE;
@@ -77,21 +77,12 @@ public abstract class OptionsAvailable<T> {
     }
 
     public static OptionsAvailable<? extends Object> valueOf(Option opt) {
-        return listOptions().stream().filter(optAvailable -> {
-            if (optAvailable.longName.equals(opt.getLongOpt())) {
-                opt.getValues();
-                return true;
-            }
-            return false;
-        }).findFirst().orElse(null);
+        return listOptions().stream().filter(opt.getLongOpt()::equals).findFirst().orElse(null);
     }
 
     private Option getOption(Option[] opts) {
-        for (Option option : nullGuard(opts)) {
-            if (this.longName.equals(option.getLongOpt())) {
-                return option;
-            }
-        }
-        return null;
+        return asStream(opts).filter(opt -> {
+            return this.longName.equals(opt.getLongOpt());
+        }).findFirst().orElse(null);
     }
 }

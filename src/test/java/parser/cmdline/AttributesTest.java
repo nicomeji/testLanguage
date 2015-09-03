@@ -2,20 +2,18 @@ package parser.cmdline;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
-import org.easymock.EasyMock;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-
-import java.util.stream.Stream;
+import static parser.utils.Utils.getArrayFrom;
+import static parser.utils.Utils.asStream;
 
 import org.apache.commons.cli.Option;
+import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Test;
-
-import static parser.utils.Utils.getArrayFrom;
-import static parser.utils.Utils.nullGuard;
-
-;
 
 /**
  * TODO - Remove all "anyTimes". Each "anyTimes" call is the result of a
@@ -27,12 +25,12 @@ public class AttributesTest {
 
     @After
     public void tearDown() {
-        Stream.of(nullGuard(mockedOptions)).forEach(EasyMock::verify);
+        asStream(mockedOptions).forEach(EasyMock::verify);
         mockedOptions = null;
     }
 
     private Attributes createAttributesObj(Option... options) {
-        Stream.of(nullGuard(options)).forEach(EasyMock::replay);
+        asStream(options).forEach(EasyMock::replay);
         return new Attributes(mockedOptions = options);
     }
 

@@ -1,9 +1,9 @@
 package parser.sentence;
 
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 public class SimpleSentence {
-    @Getter
     private final String returnedType;
 
     public SimpleSentence (String returnedType) {

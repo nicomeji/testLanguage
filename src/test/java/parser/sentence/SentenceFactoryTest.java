@@ -17,8 +17,9 @@ public class SentenceFactoryTest {
 		sentence = sentenceFactory.processSentence("a=1;");
 	}
 
+	// TODO - Remove null
     @Test
     public void sentenceHasReturnedType () {
-        assertThat(sentence.getReturnedType(), is(equalTo("")));
+        assertThat(sentence.getReturnedType(), is(equalTo(null)));
     }
 }
