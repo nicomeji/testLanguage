@@ -13,7 +13,7 @@ public class Utils {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <T> T[] getArrayFrom(T... array) {
         return array;
     }
