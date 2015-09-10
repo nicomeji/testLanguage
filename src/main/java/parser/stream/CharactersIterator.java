@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Stack;
 import java.util.stream.Stream;
 
 public class CharactersIterator implements Iterator<Character> {
     private final Stream<String> source;
     private Iterator<Character> buffer;
-    private Stack<Character> aux;
 
     private CharactersIterator(Stream<String> in) {
         this.source = in;
-        this.aux = new Stack<Character>();
     }
 
     // public static Stream<Character> of (Stream<String> in) {
@@ -33,15 +30,8 @@ public class CharactersIterator implements Iterator<Character> {
         }
     }
 
-    public void pushBach(Character a) {
-        aux.push(a);
-    }
-
     @Override
     public boolean hasNext() {
-        if (!aux.empty()) {
-            return true;
-        }
         if (buffer.hasNext()) {
             return true;
         }
@@ -51,9 +41,6 @@ public class CharactersIterator implements Iterator<Character> {
 
     @Override
     public Character next() {
-        if (!aux.empty()) {
-            return aux.pop();
-        }
         return buffer.next();
     }
 }

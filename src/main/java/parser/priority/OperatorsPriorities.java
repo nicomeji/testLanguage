@@ -1,21 +1,21 @@
-package parser.operators;
+package parser.priority;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class OperatorsPriorities {
-    public static final Priority MIN_VALUE = new Priority();
-    public static final Priority MAX_VALUE = new Priority();
-    private List<Priority> priorities;
+public class OperatorsPriorities <T> {
+    public final Priority<T> MIN_VALUE = new Priority<T>();
+    public final Priority<T> MAX_VALUE = new Priority<T>();
+    private List<Priority<T>> priorities;
 
     public OperatorsPriorities() {
-        priorities = new LinkedList<Priority>();
+        priorities = new LinkedList<Priority<T>>();
         priorities.add(MIN_VALUE);
         priorities.add(MAX_VALUE);
     }
 
-    public Priority insert(Priority reference, Priority newPriority) {
+    public Priority<T> insert(Priority<T> reference, Priority<T> newPriority) {
         int index;
         if (MIN_VALUE == reference) {
             index = 1;
@@ -26,7 +26,7 @@ public final class OperatorsPriorities {
         return newPriority;
     }
 
-    public List<Priority> getPriorities() {
+    public List<Priority<T>> getPriorities() {
         return Collections.unmodifiableList(priorities);
     }
 }
