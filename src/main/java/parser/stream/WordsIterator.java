@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 public class WordsIterator implements Iterator<String> {
     private final CharactersIterator source;
     private Iterator<String> buffer;
-    private Stack<String> aux;
+    private Stack<Character> aux;
 
     private WordsIterator(CharactersIterator in) {
         this.source = in;
-        this.aux = new Stack<String>();
+        this.aux = new Stack<Character>();
     }
 
     // public static Stream<String> of (Stream<Character> in) {
@@ -34,10 +34,6 @@ public class WordsIterator implements Iterator<String> {
             }
             buffer = items.iterator();
         }
-    }
-
-    public void pushBach(String a) {
-        aux.push(a);
     }
 
     @Override
@@ -58,16 +54,5 @@ public class WordsIterator implements Iterator<String> {
             return aux.pop();
         }
         return buffer.next();
-    }
-}
-
-public class Main {
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        try (Scanner s2 = new Scanner("int a=1; long b = 2; float hola_mund=1.0 ;");) {
-            while (s2.hasNext()) {
-                String s = s2.next();
-                System.out.println(s);
-            }
-        }
     }
 }
