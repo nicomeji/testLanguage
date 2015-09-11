@@ -7,20 +7,24 @@ import java.util.Observable;
 
 import lombok.Getter;
 
-abstract public class KeyMatcher extends Observable {
+public class Matcher extends Observable {
     private final List<Character> symbol;
     private MatcherStatus notifyOnStatus;
     private int index;
 
     @Getter
+    private Key key;
+
+    @Getter
     private MatcherStatus status;
 
-    public KeyMatcher(String symbol) {
+    public Matcher(String symbol) {
         List<Character> aux = new ArrayList<Character>();
         for (Character character : symbol.toCharArray()) {
             this.symbol.add(character);
         }
         this.symbol = Collections.unmodifiableList(aux);
+        this.key = new Key(symbol);
         reset();
     }
 

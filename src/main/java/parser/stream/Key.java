@@ -1,6 +1,12 @@
 package parser.stream;
 
+import lombok.Data;
+
+@Data
 public class Key {
-    public Key(String description) {
+    private final String symbol;
+
+    public Key(String symbol) {
+        this.symbol = symbol;
     }
 }
