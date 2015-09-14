@@ -1,4 +1,4 @@
-package parser.stream;
+package parser.matchers;
 
 import lombok.Data;
 

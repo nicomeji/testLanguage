@@ -1,4 +1,4 @@
-package parser.stream;
+package parser.matchers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import lombok.Getter;
 
-public class Matcher extends Observable {
+public class IFSMatcher extends Observable {
     private final List<Character> symbol;
     private MatcherStatus notifyOnStatus;
     private int index;
@@ -18,7 +18,7 @@ public class Matcher extends Observable {
     @Getter
     private MatcherStatus status;
 
-    public Matcher(String symbol) {
+    public IFSMatcher(String symbol) {
         List<Character> aux = new ArrayList<Character>();
         for (Character character : symbol.toCharArray()) {
             this.symbol.add(character);
