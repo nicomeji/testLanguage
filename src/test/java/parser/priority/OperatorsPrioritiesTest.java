@@ -17,7 +17,7 @@ public class OperatorsPrioritiesTest {
 
     @Before
     public void setUp() {
-        operationsPriorities = new OperatorsPriorities<Operator>();
+        operationsPriorities = new OperatorsPriorities<Operator>(new Priority<Operator>(), new Priority<Operator>());
     }
 
     @Test
