@@ -9,21 +9,24 @@ import org.junit.Test;
 import parser.operators.Operator;
 
 public class PriorityTest {
+    private static final Operator PLUS = new Operator("Plus", "+", "Any description");
+    private static final Operator MINUS = new Operator("Minus", "-", "Any description");
+    private static final Operator EQUAL = new Operator("Euqal", "=", "Any description");
+
     @Test
     public void priorityContainsOperators_1() {
-        Priority<Operator> priority = new Priority<Operator>(asList(new Operator("Minus", "-", "Any description")));
+        Priority<Operator> priority = Priority.of(asList(MINUS));
         assertThat(priority.getOperators(), hasSize(1));
     }
 
     @Test
     public void priorityContainsOperators_2() {
-        Priority<Operator> priority = new Priority<Operator>(
-                asList(new Operator("Minus", "-", "Any description"), new Operator("Plus", "+", "Any description")));
+        Priority<Operator> priority = Priority.of(asList(MINUS, PLUS));
         assertThat(priority.getOperators(), hasSize(2));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void priorityCannotHasDuplicateOperators() {
-        new Priority<Operator>(asList(new Operator("Minus", "-", "Any description"), new Operator("Minus", "-", "Any description")));
+        Priority.of(asList(MINUS, EQUAL, MINUS));
     }
 }

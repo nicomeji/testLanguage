@@ -1,10 +1,12 @@
-package parser.matchers;
+package parser.matchers.custom;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
+import parser.matchers.CharacterMatcher.MatcherStatus;
+import parser.operators.Key;
 import lombok.Getter;
 
 public class IFSMatcher extends Observable {

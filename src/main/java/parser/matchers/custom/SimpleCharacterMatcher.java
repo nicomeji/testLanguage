@@ -1,4 +1,6 @@
-package parser.matchers;
+package parser.matchers.custom;
+
+import parser.matchers.CharacterMatcher;
 
 public class SimpleCharacterMatcher extends CharacterMatcher {
     private int index;

@@ -5,10 +5,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
+import parser.operators.Key;
 import lombok.Getter;
 import lombok.Setter;
 
 public abstract class CharacterMatcher extends Observable {
+    public enum MatcherStatus {
+        MATCHED, POTENTIAL_MATCHING, NOT_MATCHED;
+    }
+
     protected final List<Character> symbol;
     private boolean parseCompleted;
 
