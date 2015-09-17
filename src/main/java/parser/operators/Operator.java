@@ -13,29 +13,26 @@ public class Operator {
     private final String name;
     private final String symbol;
     private final String description;
-    private final Pattern pattern;
 
-    Operator(String name, String symbol, String description) {
+    public Operator(String name, String symbol, String description) {
         if (name == null || symbol == null || description == null) {
             throw new IllegalArgumentException();
         }
         this.name = name;
         this.symbol = symbol;
         this.description = description;
-        try {
-            this.pattern = Pattern.compile(Pattern.quote(symbol));
-        } catch (PatternSyntaxException e) {
-            throw new IllegalArgumentException(e.getCause());
-        }
     }
 
-    @Deprecated
-    public List<Integer> indexes(String line) {
-        Matcher matcher = pattern.matcher(line);
-        List<Integer> indexes = new ArrayList<Integer>();
-        while (matcher.find()) {
-            indexes.add(matcher.start());
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Operator) {
+            return symbol.equals(((Operator) o).symbol);
         }
-        return indexes;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

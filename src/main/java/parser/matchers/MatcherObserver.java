@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.stream.Collectors;
 
 import parser.priority.OperatorsPriorities;
+import parser.priority.Priority;
 
 public class MatcherObserver implements Observer {
     // TODO - esta debería ser una lista de priorities.
     // Cada priority contiene un matcher.
+    private Priority<Key> lala;
     private OperatorsPriorities<CharacterMatcher> priorityMatchers;
     private List<CharacterMatcher> matchers;
 
@@ -21,6 +24,12 @@ public class MatcherObserver implements Observer {
                 matcher.addObserver(this);
                 matchers.add(matcher);
             });
+        });
+        
+        priorityMatchers.stream().forEach(priority -> {
+            lala = priority.getOperators().stream().map(matcher -> {
+                return matcher.getKey();
+            }).collect(Collectors.toList());
         });
     }
 

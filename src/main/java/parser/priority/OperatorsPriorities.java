@@ -2,36 +2,37 @@ package parser.priority;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
-public class OperatorsPriorities <T> {
-    public final Priority<T> MIN_VALUE;
-    public final Priority<T> MAX_VALUE;
-    private List<Priority<T>> priorities;
+import parser.matchers.CharacterMatcher;
+import lombok.Data;
+import lombok.Getter;
 
-    public OperatorsPriorities(Priority<T> min, Priority<T> max) {
-        priorities = new ArrayList<Priority<T>>();
-        priorities.add(MIN_VALUE = min);
-        priorities.add(MAX_VALUE = max);
-    }
+@Data
+public class OperatorsPriorities<T> {
+    private final List<Priority<T>> priorities;
+    private final Set<T> operators;
 
-    public Priority<T> insert(Priority<T> reference, Priority<T> newPriority) {
-        int index;
-        if (MIN_VALUE == reference) {
-            index = 1;
-        } else {
-            index = priorities.indexOf(reference);
+    public OperatorsPriorities(List<Priority<T>> piorities) {
+        List<Priority<T>> aux = new ArrayList<Priority<T>>();
+        operators = new HashSet<T>();
+        for (Priority<T> priority : piorities) {
+            priority.getOperators().stream().forEach(operator -> {
+                if (!operators.add(operator)) {
+                    throw new IllegalArgumentException();
+                }
+            });
+            if (!aux.add(priority)) {
+                throw new IllegalArgumentException();
+            }
         }
-        priorities.add(index, newPriority);
-        return newPriority;
-    }
-
-    public List<Priority<T>> getPriorities() {
-        return Collections.unmodifiableList(priorities);
+        this.priorities = Collections.unmodifiableList(aux);
     }
 
     public Stream<Priority<T>> stream() {
-        return Collections.unmodifiableList(priorities).stream();
+        return priorities.stream();
     }
 }

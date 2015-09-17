@@ -1,48 +1,35 @@
 package parser.priority;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import parser.operators.Operator;
 
 public class OperatorsPrioritiesTest {
-    OperatorsPriorities<Operator> operationsPriorities;
+    private OperatorsPriorities<Operator> operationsPriorities;
+    private static final Operator PLUS = new Operator("Plus", "+", "Any description");
+    private static final Operator MINUS = new Operator("Minus", "-", "Any description");
+    private static final Operator EQUAL = new Operator("Euqal", "=", "Any description");
 
-    @Before
-    public void setUp() {
-        operationsPriorities = new OperatorsPriorities<Operator>(new Priority<Operator>(), new Priority<Operator>());
+    @Test
+    public void priorityListIsReadable_1() {
+        operationsPriorities = new OperatorsPriorities<Operator>(asList(new Priority<Operator>(asList(EQUAL)), new Priority<Operator>(asList(PLUS))));
+
+        assertThat(operationsPriorities.getPriorities(), hasSize(2));
     }
 
     @Test
-    @SuppressWarnings("unchecked")
-    public void priorityListIsReadable() {
-        assertThat(operationsPriorities.getPriorities(), containsInAnyOrder(operationsPriorities.MIN_VALUE, operationsPriorities.MAX_VALUE));
+    public void priorityListIsReadable_2() {
+        operationsPriorities = new OperatorsPriorities<Operator>(asList(new Priority<Operator>(asList(EQUAL)),new Priority<Operator>(asList(MINUS)), new Priority<Operator>(asList(PLUS))));
 
-        Priority<Operator> newPriority = new Priority<Operator>();
-        operationsPriorities.insert(operationsPriorities.MIN_VALUE, newPriority);
-        assertThat(operationsPriorities.getPriorities(), containsInAnyOrder(operationsPriorities.MIN_VALUE, newPriority, operationsPriorities.MAX_VALUE));
+        assertThat(operationsPriorities.getPriorities(), hasSize(3));
     }
 
-    @Test
-    public void minPriorityMustAlwaysbeMin() {
-        Priority<Operator> newPriority = new Priority<Operator>();
-        operationsPriorities.insert(operationsPriorities.MIN_VALUE, newPriority);
-        List<Priority<Operator>> priorities = operationsPriorities.getPriorities();
-        assertThat(priorities.get(0), is(equalTo(operationsPriorities.MIN_VALUE)));
-    }
-
-    @Test
-    public void maxPriorityMustAlwaysbeMax() {
-        Priority<Operator> newPriority = new Priority<Operator>();
-        operationsPriorities.insert(operationsPriorities.MIN_VALUE, newPriority);
-        List<Priority<Operator>> priorities = operationsPriorities.getPriorities();
-        assertThat(priorities.get(priorities.size() - 1), is(equalTo(operationsPriorities.MAX_VALUE)));
+    @Test(expected = IllegalArgumentException.class)
+    public void doesNotAcceptDuplicateOperators() {
+        operationsPriorities = new OperatorsPriorities<Operator>(asList(new Priority<Operator>(asList(EQUAL)),new Priority<Operator>(asList(EQUAL)), new Priority<Operator>(asList(PLUS))));
     }
 }
