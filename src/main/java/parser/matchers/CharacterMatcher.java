@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
-import parser.operators.Key;
 import lombok.Getter;
-import lombok.Setter;
+import parser.operators.Key;
 
 public abstract class CharacterMatcher extends Observable {
     public enum MatcherStatus {
@@ -15,11 +14,6 @@ public abstract class CharacterMatcher extends Observable {
     }
 
     protected final List<Character> symbol;
-    private boolean parseCompleted;
-
-    @Getter
-    @Setter
-    private MatcherStatus notifyOnStatus;
 
     @Getter
     private final Key key;
@@ -39,7 +33,6 @@ public abstract class CharacterMatcher extends Observable {
 
     public void reset() {
         status = MatcherStatus.POTENTIAL_MATCHING;
-        parseCompleted = false;
         clearChanged();
     }
 
@@ -60,16 +53,8 @@ public abstract class CharacterMatcher extends Observable {
     }
 
     private void setStatus(MatcherStatus status) {
-        if (!parseCompleted) {
-            parseCompleted = true;
-            this.status = status;
-            notifyIfNeeded();
-        }
-    }
-
-    private void notifyIfNeeded() {
-        if (notifyOnStatus.equals(status)) {
-            notifyObservers(status);
-        }
+        this.status = status;
+        setChanged();
+        notifyObservers(key);
     }
 }
