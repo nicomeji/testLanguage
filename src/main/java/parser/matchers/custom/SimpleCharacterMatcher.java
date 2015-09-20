@@ -10,13 +10,13 @@ public class SimpleCharacterMatcher extends CharacterMatcher {
     }
 
     @Override
-    public void reset() {
-        super.reset();
+    public void clearChanged() {
+        super.clearChanged();
         index = 0;
     }
 
     @Override
-    protected void check(Character a) {
+    public void parse(Character a) {
         if (symbol.get(index).equals(a)) {
             if (index == symbol.size() - 1) {
                 matched();;
